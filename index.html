@@ -28,6 +28,7 @@
         var map = topojson.feature(county, county.objects.counties).features;
         var path = d3.geoPath();
         var svg = d3.select("svg");
+        var colorScale = d3.scaleOrdinal(d3.interpolatePurples())
         
           svg.append("g")
           .selectAll("path")
