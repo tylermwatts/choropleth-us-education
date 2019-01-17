@@ -27,7 +27,8 @@
       function ready(err,county,edu){
         if (err) throw err;
         
-        var map = topojson.feature(county, county.objects.counties).features;
+        var countyMap = topojson.feature(county, county.objects.counties).features;
+        var stateMap = topojson.mesh(county, county.objects.states, function(a,b){return a !== b})
         var path = d3.geoPath();
         var svg = d3.select("svg");
         var colorScale = d3.scaleOrdinal().domain([0,100]).range(d3.schemePurples[7])
@@ -52,27 +53,34 @@
           .style("fill", "url(#linear-gradient)")
           .attr("transform","translate(550,0)");
         
-        var countyMap = svg.append("g")
-                          .selectAll("path")
-                          .data(map)
-                          .enter()
-                          .append("path")
-                          .attr("class","county")
-                          .attr("d", path)
-                          .attr("id", d=>d.id)
-                          .attr("data-fips", d=>d.id)
-                          .attr("data-education", d=>{
-                            var county = edu.find(function(e){
-                              return e.fips === d.id
-                            })
-                            return county.bachelorsOrHigher;
-                          })
-                          .attr("fill", d=>{
-                            var county = edu.find(function(e){
-                              return e.fips === d.id
-                            })
-                            return colorScale(county.bachelorsOrHigher);
-                          })
+        svg.append("g")
+          .selectAll("path")
+          .data(countyMap)
+          .enter()
+          .append("path")
+          .attr("class","county")
+          .attr("d", path)
+          .attr("id", d=>d.id)
+          .attr("data-fips", d=>d.id)
+          .attr("data-education", d=>{
+            var county = edu.find(function(e){
+              return e.fips === d.id
+            })
+            return county.bachelorsOrHigher;
+          })
+          .attr("fill", d=>{
+            var county = edu.find(function(e){
+              return e.fips === d.id
+            })
+            return colorScale(county.bachelorsOrHigher);
+          })
+        svg.append("path")
+          .datum(stateMap).enter()
+          .attr("fill","none")
+          .attr("stroke","black")
+              .attr("stroke-linejoin", "round")
+          .attr("d",path)
+
       }
     </script>
         <!-- include the Glitch button to show what the webpage is about and
