@@ -32,8 +32,9 @@
         var stateMap = topojson.mesh(county, county.objects.states, function(a,b){return a !== b})
         var path = d3.geoPath();
         var svg = d3.select("svg");
-        var min = d3.min(edu=
-        var colorScale = d3.scaleThreshold().domain(d3.range(d3.min(),d3.max(), )).range(d3.schemeGreens[9]);
+        var min = d3.min(edu, e=>e.bachelorsOrHigher)
+        var max = d3.max(edu, e=>e.bachelorsOrHigher)
+        var colorScale = d3.scaleThreshold().domain(d3.range(min, max, (max-min)/9)).range(d3.schemePurples[6]);
       
         var defs = svg.append("defs")
         var linearGradient = defs.append("linearGradient").attr("id", "linear-gradient");
@@ -49,6 +50,7 @@
         linearGradient.append("stop")
           .attr("offset", "100%")
           .attr("stop-color", colorScale(100));
+        linearGradient.call(d3.axisBottom(d3.scaleLinear().domain([min, max]).rangeRound([600,860]))).tickSize(13)
         svg.append("rect")
           .attr("width", 300)
           .attr("height", 20)
