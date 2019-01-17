@@ -4,6 +4,6 @@ body{
 }
 
 .county{
-  stroke: white;
-  stroke-width: 1;
+  stroke: purple;
+  stroke-width: 0.25;
 }
