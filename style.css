@@ -3,6 +3,14 @@ body{
   text-align: center;
 }
 
+#title {
+  font-family: 'Slabo 27px', serif;
+}
+
+#description {
+  font-family: 'Slabo 27px', serif;
+}
+
 .county{
   stroke: purple;
   stroke-width: 0.25;
