@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Hello!</title>
+    <title>U.S. Educational Attainment</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -43,10 +43,10 @@
           .attr("y2", "0%");
         linearGradient.append("stop")
           .attr("offset", "0%")
-          .attr("stop-color", colorScale(0));
+          .attr("stop-color", colorScale(0.00));
         linearGradient.append("stop")
           .attr("offset", "100%")
-          .attr("stop-color", colorScale(100));
+          .attr("stop-color", colorScale(100.00));
         svg.append("rect")
           .attr("width", 300)
           .attr("height", 20)
@@ -75,10 +75,11 @@
             return colorScale(county.bachelorsOrHigher);
           })
         svg.append("path")
-          .datum(stateMap).enter()
+          .datum(stateMap)
           .attr("fill","none")
-          .attr("stroke","black")
-              .attr("stroke-linejoin", "round")
+          .attr("stroke","white")
+          .attr("stroke-width","1")
+          .attr("stroke-linejoin", "round")
           .attr("d",path)
 
       }
