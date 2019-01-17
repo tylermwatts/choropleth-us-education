@@ -50,14 +50,12 @@
         linearGradient.append("stop")
           .attr("offset", "100%")
           .attr("stop-color", colorScale(100));
-        linearGradient.call(d3.axisBottom(d3.scaleLinear().domain([min, max]).rangeRound([600,860]))).tickSize(13)
         svg.append("rect")
           .attr("width", 300)
           .attr("height", 20)
           .attr("id","legend")
           .style("fill", "url(#linear-gradient)")
-          .attr("transform","translate(550,0)");
-        
+          .attr("transform","translate(550,0)");     
         svg.append("g")
           .selectAll("path")
           .data(countyMap)
