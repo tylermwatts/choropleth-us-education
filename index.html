@@ -11,17 +11,26 @@
     
     <!-- import the webpage's javascript file -->
     <script src="/script.js" defer></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://unpkg.com/topojson@3"></script>
   </head>  
   <body>
-    <h1>Hi there!</h1>
-    
-    <p>
-      I'm your cool new webpage. Made with <a href="https://glitch.com">Glitch</a>!
-    </p>
+    <h1>United States Educational Attainment</h1>
+    <div id="map">
+      <svg width="960" height="600"/>
+    </div>
 
     <!-- include the Glitch button to show what the webpage is about and
           to make it easier for folks to view source and remix -->
     <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>
     <script src="https://button.glitch.me/button.js"></script>
+    <script>
+      const countyUrl = 'https://raw.githubusercontent.com/no-stack-dub-sack/testable-projects-fcc/master/src/data/choropleth_map/counties.json'
+      const eduUrl = 'https://raw.githubusercontent.com/no-stack-dub-sack/testable-projects-fcc/master/src/data/choropleth_map/for_user_education.json'
+      d3.json(countyUrl, function(err,county){
+        if (err) throw err;
+        console.log(county.objects.counties)
+      })
+    </script>
   </body>
 </html>
