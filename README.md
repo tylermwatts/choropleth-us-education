@@ -1,37 +1,10 @@
-Welcome to Glitch
-=================
+Choropleth Map - U.S. Educational Attainment
+============================================
 
-Click `Show` in the header to see your app live. Updates to your code will instantly deploy and update live.
+## A freeCodeCamp Data Visualization project by [Tyler Watts](https://www.github.com/warpfox)
 
-**Glitch** is the friendly community where you'll build the app of your dreams. Glitch lets you instantly create, remix, edit, and host an app, bot or site, and you can invite collaborators or helpers to simultaneously edit code with you.
+This is a choropleth map showing the percentage of the U.S. population with a bachelor's degree or higher, mapped by county.
 
-Find out more [about Glitch](https://glitch.com/about).
+Libraries used are [D3](https://d3js.org), [topoJson](https://github.com/topojson/topojson), and [D3 Scale Chromatic](https://github.com/d3/d3-scale-chromatic).
 
-
-Your Project
-------------
-
-### ← README.md
-
-That's this file, where you can tell people what your cool website does and how you built it.
-
-### ← index.html
-
-Where you'll write the content of your website. 
-
-### ← style.css
-
-CSS files add styling rules to your content.
-
-### ← script.js
-
-If you're feeling fancy you can add interactivity to your site with JavaScript.
-
-### ← assets
-
-Drag in `assets`, like images or music, to add them to your project
-
-Made by [Glitch](https://glitch.com/)
--------------------
-
-\ ゜o゜)ノ
+This project is part of [freeCodeCamp](https://www.freecodecamp.org)'s **Data Visualization** Projects. The user stories can be found [here](https://learn.freecodecamp.org/data-visualization/data-visualization-projects/visualize-data-with-a-choropleth-map).
