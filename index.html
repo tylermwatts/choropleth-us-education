@@ -16,21 +16,32 @@
   </head>  
   <body>
     <h1>United States Educational Attainment</h1>
-    <div id="map">
-      <svg width="960" height="600"/>
-    </div>
-
-    <!-- include the Glitch button to show what the webpage is about and
+    <svg width="960" height="600"></svg>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://d3js.org/topojson.v2.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script>
+      d3
+        .queue()
+        .defer(d3.json, "https://raw.githubusercontent.com/no-stack-dub-sack/testable-projects-fcc/master/src/data/choropleth_map/counties.json")
+        .defer(d3.json, "https://raw.githubusercontent.com/no-stack-dub-sack/testable-projects-fcc/master/src/data/choropleth_map/for_user_education.json")
+        .await(done)
+      function done(err,county,edu){
+        if (err) throw err;
+        const svg = d3.select('svg')
+          svg.append('g')
+          .selectAll('path')
+          .data(topoJson.feature(county, county.objects.counties).features)
+          .enter()
+          .append('path')
+          .attr('d', d3.geoPath())
+          .attr('fill', 'black')
+      }
+      })
+    </script>
+        <!-- include the Glitch button to show what the webpage is about and
           to make it easier for folks to view source and remix -->
     <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>
     <script src="https://button.glitch.me/button.js"></script>
-    <script>
-      const countyUrl = 'https://raw.githubusercontent.com/no-stack-dub-sack/testable-projects-fcc/master/src/data/choropleth_map/counties.json'
-      const eduUrl = 'https://raw.githubusercontent.com/no-stack-dub-sack/testable-projects-fcc/master/src/data/choropleth_map/for_user_education.json'
-      d3.json(countyUrl, function(err,county){
-        if (err) throw err;
-        console.log(county.objects.counties)
-      })
-    </script>
   </body>
 </html>
