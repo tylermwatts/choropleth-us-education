@@ -8,11 +8,6 @@
     
     <!-- import the webpage's stylesheet -->
     <link rel="stylesheet" href="/style.css">
-    
-    <!-- import the webpage's javascript file -->
-    <script src="/script.js" defer></script>
-    <script src="https://d3js.org/d3.v5.min.js"></script>
-    <script src="https://unpkg.com/topojson@3"></script>
   </head>  
   <body>
     <h1>United States Educational Attainment</h1>
@@ -21,21 +16,27 @@
     <script src="https://d3js.org/topojson.v2.min.js"></script>
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
     <script>
-      d3
-        .queue()
-        .defer(d3.json, "https://raw.githubusercontent.com/no-stack-dub-sack/testable-projects-fcc/master/src/data/choropleth_map/counties.json")
-        .defer(d3.json, "https://raw.githubusercontent.com/no-stack-dub-sack/testable-projects-fcc/master/src/data/choropleth_map/for_user_education.json")
-        .await(done)
-      function done(err,county,edu){
+      
+      d3.queue()
+          .defer(d3.json, "https://raw.githubusercontent.com/no-stack-dub-sack/testable-projects-fcc/master/src/data/choropleth_map/counties.json")
+          .defer(d3.json, "https://raw.githubusercontent.com/no-stack-dub-sack/testable-projects-fcc/master/src/data/choropleth_map/for_user_education.json")
+          .await(ready)
+      
+      function ready(err,county,edu){
         if (err) throw err;
-        const svg = d3.select('svg')
-          svg.append('g')
-          .selectAll('path')
-          .data(topoJson.feature(county, county.objects.counties).features)
+        
+        var map = topojson.feature(county, county.objects.counties).features;
+        var path = d3.geoPath();
+        var svg = d3.select("svg");
+        
+          svg.append("g")
+          .selectAll("path")
+          .data()
           .enter()
-          .append('path')
-          .attr('d', d3.geoPath())
-          .attr('fill', 'black')
+          .append("path")
+          .attr("d", path)
+          .attr("id",d=>d.id)
+          .attr("fill", 'black')
       }
       })
     </script>
