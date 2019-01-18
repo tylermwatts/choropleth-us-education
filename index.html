@@ -87,21 +87,26 @@
               .duration(200)
               .style("opacity", 0.9);
             tooltip
-              .html(`County: `)
+              .html(`County: {d=>{
+                              var county = edu.find(function(e){
+                                return e.fips === d.id
+                              })
+                              return county.area_name}}`)
               .style("left", d3.event.pageX + 20 + "px")
               .style("top", d3.event.pageY + 20 + "px");
             tooltip.attr("data-education", d=>{
               var county = edu.find(function(e){
                 return e.fips === d.id
               })
-            return county.bachelorsOrHigher;);
-      })
-      .on("mouseout", function(d) {
-        tooltip
-          .transition()
-          .duration(400)
-          .style("opacity", 0);
-      });
+              return county.bachelorsOrHigher
+            })
+          })
+          .on("mouseout", function(d) {
+            tooltip
+              .transition()
+              .duration(400)
+              .style("opacity", 0);
+          });
         svg.append("path")
           .datum(stateMap)
           .attr("fill","none")
