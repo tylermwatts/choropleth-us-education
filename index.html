@@ -81,9 +81,9 @@
           .data(countyMap)
           .enter()
           .append("path")
-          .attr("class","county")
           .attr("d", path)
           .attr("id", d=>d.id)
+          .attr("class","county")
           .attr("data-fips", d=>d.id)
           .attr("data-education", d=>getEduPercent(d.id))
           .attr("fill", d=>colorScale(getEduPercent(d.id)))
@@ -96,8 +96,7 @@
               .html(`County: ${getCountyName(d.id)}<br/>Bachelor's or higher: ${getEduPercent(d.id)}\%`)
               .style("left", d3.event.pageX + 20 + "px")
               .style("top", d3.event.pageY + 20 + "px")
-              .attr("data
-
+              .attr("data-education", d=>getEduPercent(d.id))
           })
           .on("mouseout", function(d) {
             tooltip
