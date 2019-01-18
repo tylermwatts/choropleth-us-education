@@ -38,6 +38,20 @@
         var colorScale = d3.scaleThreshold().domain(d3.range(min, max, (max-min)/9)).range(d3.schemePurples[9]);
         var colorStops = [min,max*0.2,max*0.3,max*0.5,max*0.7,max];
         
+        const getCountyName = id => {
+          var county = edu.find(e=>{
+            return e.fips === id
+          })
+          return county.area_name;
+        }
+        
+        const getEduPercent = id => {
+          var county = edu.find(e=>{
+            return e.fips === id
+          })
+          return county.bachelorsOrHigher
+        }
+        
         let tooltip = d3
           .select("body")
           .append("div")
@@ -69,29 +83,15 @@
           .attr("d", path)
           .attr("id", d=>d.id)
           .attr("data-fips", d=>d.id)
-          .attr("data-education", d=>{
-            var county = edu.find(function(e){
-              return e.fips === d.id
-            })
-            return county.bachelorsOrHigher;
-          })
-          .attr("fill", d=>{
-            var county = edu.find(function(e){
-              return e.fips === d.id
-            })
-            return colorScale(county.bachelorsOrHigher);
-          })
+          .attr("data-education", d=>getEduPercent(d.id))
+          .attr("fill", d=>colorScale(getEduPercent(d.id)))
           .on("mouseover", function(d) {
             tooltip
               .transition()
               .duration(200)
               .style("opacity", 0.9);
             tooltip
-              .html(`County: {d=>{
-                              var county = edu.find(function(e){
-                                return e.fips === d.id
-                              })
-                              return county.area_name}}`)
+              .html(`County: ${getCountyName(d.id)}<br/>Bachelor's or higher: ${getEduPercent(d.id)}\%`)
               .style("left", d3.event.pageX + 20 + "px")
               .style("top", d3.event.pageY + 20 + "px");
             tooltip.attr("data-education", d=>{
