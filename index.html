@@ -36,7 +36,7 @@
         var min = d3.min(edu, e=>e.bachelorsOrHigher)
         var max = d3.max(edu, e=>e.bachelorsOrHigher)
         var colorScale = d3.scaleThreshold().domain(d3.range(min, max, (max-min)/9)).range(d3.schemePurples[9]);
-        var colorStops = [min,max*0.2,max*0.4,max*0.6,max*0.8,max];
+        var colorStops = [min,max*0.2,max*0.3,max*0.4,max*0.5,max*0.6,max*0.7,max*0.8,max*0.9, max];
         
         const getCountyName = id => {
           var county = edu.find(e=>{
@@ -69,25 +69,29 @@
         
         var legend = svg.append("g")
                       .attr("id","legend")
-                      .attr("transform","translate(550,0)");
+                      .attr("transform","translate(325,10)");
       
         legend.selectAll("rect")
           .data(colorStops)
           .enter()
           .append("rect")
-          .attr("width", 50)
+          .attr("width", 30)
           .attr("height", 20)
-          .attr("x", (d,i)=>i*50)
+          .attr("x", (d,i)=>i*30)
           .attr("y",0)
           .style("fill", d=>colorScale(d))
         
-        legend.append("g").attr("transform","translate(0,0)").call(d3.axisBottom(d3.scaleLinear().domain([min - (max - min)/9, max]).range([0,300])).tickSize(20).tickFormat((x, i) => {
-        return i ? Math.round(x) + "%" : Math.round(x) + "%";
-      })
-      .tickValues(colorScale.domain())
-    )
-    .select(".domain")
-    .remove();
+        legend
+          .append("g")
+          .attr("transform","translate(0,0)")
+          .call(d3.axisBottom(d3.scaleLinear().domain([min - (max - min)/9, max]).range([0,300]))
+                .tickSize(20)
+                .tickFormat((x, i) => {
+                  return i ? Math.round(x) + "%" : Math.round(x) + "%";
+                })
+                .tickValues(colorScale.domain()))
+          .select(".domain")
+          .remove();
                
         svg.append("g")
           .selectAll("path")
