@@ -29,7 +29,7 @@ body{
     width: 200px;					
     height: auto;					
     padding: 2px;				
-    font: 12px sans-serif;		
+    font-family: 'Slabo 12px', serif;
     background: lavender;	
     border: 0px;		
     border-radius: 8px;			
